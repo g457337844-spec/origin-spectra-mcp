@@ -1,0 +1,87 @@
+Origin MCP 本地审查与修正记录（2026-10-05）
+
+审查范围
+检查连接和主线程调度、表格导入、工程保存、图形导出，并对照用户的
+g457337844-spec/plotter 仓库审查 XPS/XRD 绘图流程。
+不能仅凭代码风格判断是否由 AI 编写。本次改动基于可复现问题。
+改动位于本地源代码及本机已注册的 Origin App；没有提交或推送 GitHub。
+之前修正的界面定时器和启动器改动继续保留。
+
+本次修正
+1. 无表头数据第一行丢失
+   file_io.read_table 过滤可选参数时把显式 header=None 一并删掉，导致
+   pandas 默认推断表头。现在保留 None，CSV/TSV/TXT/DAT 均有回归测试。
+
+2. 工程保存误报成功
+   检查 originpro.save 的 False 返回值，并核验指定路径的文件确实写入、
+   非空；已有文件没有发生更新时也不算成功。补全缺省 .opju 扩展名。
+   原来的 pe_save 回退仅保存 Project Explorer 文件夹，不适合充当完整
+   工程另存。回退改为 save -dix，同时更新当前工程名称/路径，正确选择
+   OPJ/OPJU。对无法安全放入该命令的特殊路径明确报错。
+
+3. 导出图片改坏原图标题
+   export_graph 原先调用标题清理函数，会隐藏或清空 Title/GraphTitle。
+   现在按原图导出。单图和批量导出统一检查落盘文件、失败返回、回退路径
+   和像素宽度；返回文件大小，避免把旧文件当作成功的新导出。
+
+4. 不完整连接卡住 Origin 界面
+   之前的 UI 定时器只保证监听时不等待，但接受连接后 readline 仍会等待
+   完整一行；客户端只发半行即可占住主线程。
+   嵌入式桥接现在分段、非阻塞地收发，完整请求才交给 Origin 主线程。
+   每次最多执行一条直接请求和一个排队任务；慢速接收图片也不会占住 UI。
+   关闭时先发送确认再清理。新增分片、空闲连接、慢读客户端、线程归属、
+   队列公平性和关闭确认测试。
+   当前传输上限：16 个待处理连接、单请求 32 MiB、每连接每次 64 KiB、
+   30 秒无收发进展后关闭。耗时的 Origin 原生命令本身仍同步执行。
+
+验证结果
+修改前基线：788 项测试通过。
+修改后：809 项测试通过；ruff 检查、格式检查、mypy（74 个源文件）通过；
+git diff --check 通过。
+按 AGENTS.md 停止桥接，执行 build_origin_app.py --force --install，再启动。
+status 和 doctor --ping-origin 均通过。
+实机始终核对 Origin PID=13544；已加载文件位于本机 Origin App 的 src 目录。
+
+实机行为验证：
+- 请求只发送半行，同时发送另一条正常请求，约 0.062 秒收到响应。
+- 无表头 XRD 文件完整导入 1401 行，第一点 x=10 得以保留。
+- XPS 401×7、XRD 1401×3 的工作表数据全部回读，与输入数值最大差为 0。
+- 中文且含空格的完整工程路径保存成功，文件 78999 字节；工程名称回读正确。
+  验证后恢复原能带工程名称。完整验证备份位于 work/origin-review。
+- 两张示例图导出 PNG/PDF 后，Title 原生文字对象仍保留。
+- XPS 为 1 层、9 条原生曲线（含填充边界）；XRD 为 4 层，共用 X 轴。
+- 调整并目视核对 PNG：XPS 的结合能从左向右减小，Y 轴位于左侧；图例和
+  标题不遮挡曲线。XRD 包含两组独立刻度的扫描及参考峰棒图。
+
+XPS/XRD 绘图器对照
+仓库：https://github.com/g457337844-spec/plotter
+审查版本：7f32b1acfe17450b3a582a1d38b05118e7679a28
+阅读：studio/mcp_server.py、models.py、parsers.py、planning.py、origin.py、
+service.py 及 tests/test_core.py。
+
+该项目已有 12 个 MCP 工具，包含导入、选择、选项、校验、绘图、图形审核、
+工作区保存/载入等。它的主要额外价值是光谱数据识别和业务流程封装。
+
+现有通用 Origin MCP 已能直接完成：
+- XPS：实测点、已有分峰、包络和背景显示；分峰填色；结合能倒序。
+- XRD：多样品叠加或分层、按指定规则归一化、参考峰棒图、图层共享 X 轴。
+- 原生工作簿/曲线/文字及轴标题的编辑和图形导出。
+
+要达到 plotter 同样的一键体验，仍应复用其列角色识别、单位与缺失值检查、
+PDF# 卡片文本解析、样品分组和范围检查规则，再调用 Origin MCP 执行。
+通用的绘图接口本身不会可靠地推断这些科学含义。
+plotter 当前的 XPS 路径绘制已有分峰数据，不等于自动完成分峰拟合和化学态指认。
+演示的所有数据均为模拟数据；XRD 参考峰为人为构造，不是真实 PDF/ICDD 卡片。
+
+示例产物
+outputs/Origin_MCP验证/XPS_XRD_原生示例_模拟数据.opju
+outputs/Origin_MCP验证/XPS_分峰示例_模拟数据.png（另有 PDF）
+outputs/Origin_MCP验证/XRD_分层示例_模拟数据.png（另有 PDF）
+上述 outputs 相对于本次任务目录 ni；源代码位于 ni/outputs/origin-mcp。
+当前 Origin 工程新增独立的 MCP_Synthetic_Demo 文件夹供检查；原能带图仍保留。
+
+相关官方语义依据
+https://docs.originlab.com/originpro/namespaceoriginpro_1_1project.html
+https://docs.originlab.com/x-function/ref/pe_save/
+https://docs.originlab.com/labtalk/ref/save-cmd/
+https://docs.originlab.com/labtalk/ref/layer-axis-obj/

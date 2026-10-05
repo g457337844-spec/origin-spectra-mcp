@@ -1,0 +1,20 @@
+{
+  "format": "origin-mcp-spectra-style",
+  "version": 1,
+  "style": {
+    "palette": "muted",
+    "colors": null,
+    "peak_colors": null,
+    "background_color": "#8E8E93",
+    "envelope_color": "#FF375F",
+    "measured_color": null,
+    "line_width": 1.5,
+    "peak_fill": true,
+    "fill_strength": 0.25,
+    "legend": true,
+    "show_y_values": true,
+    "font": "Arial",
+    "font_size": 24.0,
+    "template": "Origin"
+  }
+}

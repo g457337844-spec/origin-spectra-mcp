@@ -1,0 +1,13 @@
+origin-mcp third-party notices
+
+The built-in Nature palette and local lcpmgh/colors snapshot are adapted from:
+https://github.com/lcpmgh/colors
+https://lcpmgh.com/colors/
+
+Licensed under the MIT License.
+
+This private integration includes origin-mcp by Ge-Shun (MIT), based on
+https://github.com/Ge-Shun/origin-mcp at commit 2cee56a.
+The XPS/XRD workflow is adapted from the repository owner's plotter code:
+https://github.com/g457337844-spec/plotter
+Source commit: 7f32b1acfe17450b3a582a1d38b05118e7679a28.
