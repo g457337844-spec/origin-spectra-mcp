@@ -1,7 +1,7 @@
 # Origin Spectra MCP
 
 在 Windows 上通过自然语言调用 Origin，完成 XPS / XRD 绘图和可复用的外观预设。
-这是 `g457337844-spec` 的私有整合仓库，结合了通用 `origin-mcp` 和原 `plotter` 的光谱绘图流程。
+本项目在通用 `origin-mcp` 基础上扩展了科研光谱绘图流程，并整合了 `plotter` 的 XPS/XRD 工作流。
 
 ## 已实现
 
@@ -18,7 +18,7 @@
 ## 从本仓库安装
 
 需要 Windows、已授权的 Origin / OriginPro，以及 Python 3.10+。
-当前整合版已在本机 OriginPro 2024 上验证。先使用有权限的 GitHub 账号访问此私有仓库。
+当前整合版已在本机 OriginPro 2024 上验证。使用以下命令获取源码（仓库正式公开前仅授权用户可访问）。
 
 ```powershell
 git clone https://github.com/g457337844-spec/origin-spectra-mcp.git
