@@ -1,7 +1,9 @@
 # Origin Spectra MCP
 
 在 Windows 上通过自然语言调用 Origin，完成 XPS / XRD 绘图和可复用的外观预设。
-这是 `g457337844-spec` 的私有整合仓库，结合了通用 `origin-mcp` 和原 `plotter` 的光谱绘图流程。
+这是 `g457337844-spec` 维护的 MIT 开源衍生项目，基于 Ge-Shun 的通用 `origin-mcp`，整合了本账号 `plotter` 的光谱绘图流程。上游作者署名和许可证保留。
+
+它是科研光谱工具组的核心，关联 Avantage MCP 与 Plotter；项目职责、现有能力和一键绘图集成目标见[协同工作流](docs/ecosystem.md)。
 
 ## 已实现
 
@@ -18,7 +20,7 @@
 ## 从本仓库安装
 
 需要 Windows、已授权的 Origin / OriginPro，以及 Python 3.10+。
-当前整合版已在本机 OriginPro 2024 上验证。先使用有权限的 GitHub 账号访问此私有仓库。
+当前整合版已在本机 OriginPro 2024 上验证。安装并启动 Origin 后，从本仓库安装。
 
 ```powershell
 git clone https://github.com/g457337844-spec/origin-spectra-mcp.git
@@ -47,7 +49,7 @@ MCP 客户端使用本仓库环境里的 Python；将以下示例路径替换成
 运行 `.\.venv\Scripts\origin-mcp.exe status` 和
 `.\.venv\Scripts\origin-mcp.exe doctor --ping-origin` 检查连接。
 仓库名称是 `origin-spectra-mcp`；兼容原安装方式，Python 包和命令仍叫 `origin-mcp`。
-直接从 PyPI 安装上游 `origin-mcp` 不会包含本仓库的私人整合改动。
+直接从 PyPI 安装上游 `origin-mcp` 不会包含本仓库的光谱整合改动。
 
 ## 日常口述与预设
 
@@ -82,3 +84,7 @@ MCP 客户端使用本仓库环境里的 Python；将以下示例路径替换成
 - 光谱绘图流程：[g457337844-spec/plotter](https://github.com/g457337844-spec/plotter)，来源提交 `7f32b1acfe17450b3a582a1d38b05118e7679a28`。
 - 保留原作者署名、[MIT 许可](LICENSE)及[第三方说明](NOTICE)。
 - [MCP 配置](docs/mcp-config.md) · [工具与绘图样式](docs/tools.md) · [桥接说明](docs/origin-bridge.md)。
+
+## 开源与参与
+
+本项目保留上游 MIT 许可及来源说明；不包含 Origin 软件或许可证。问题反馈与贡献见 [CONTRIBUTING.md](CONTRIBUTING.md)，安全说明见 [SECURITY.md](SECURITY.md)。README 中的历史验证结果不是本轮重新执行的测试结果。

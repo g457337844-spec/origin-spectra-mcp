@@ -6,8 +6,12 @@ https://lcpmgh.com/colors/
 
 Licensed under the MIT License.
 
-This private integration includes origin-mcp by Ge-Shun (MIT), based on
+This integration includes origin-mcp by Ge-Shun (MIT), based on
 https://github.com/Ge-Shun/origin-mcp at commit 2cee56a.
 The XPS/XRD workflow is adapted from the repository owner's plotter code:
 https://github.com/g457337844-spec/plotter
 Source commit: 7f32b1acfe17450b3a582a1d38b05118e7679a28.
+
+Integration changes and the original Plotter workflow:
+Copyright (c) 2026 g457337844-spec, MIT License.
+Origin/OriginPro is separately licensed commercial software and is not included.

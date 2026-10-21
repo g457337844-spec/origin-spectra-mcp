@@ -10,7 +10,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-  { name = "Ge-Shun", email = "Ge-Shun@users.noreply.github.com" }
+  { name = "Ge-Shun", email = "Ge-Shun@users.noreply.github.com" },
+  { name = "g457337844-spec" }
 ]
 keywords = ["mcp", "origin", "originpro", "plotting", "automation"]
 classifiers = [
