@@ -65,9 +65,7 @@ def allowed(name: str, config: dict) -> bool:
     excludes = config["exclude"]
     selected = any(name == p or name.startswith(p.rstrip("/") + "/") for p in includes)
     rejected = any(
-        fnmatch.fnmatchcase(name, pat)
-        or name == pat
-        or name.startswith(pat.rstrip("/") + "/")
+        fnmatch.fnmatchcase(name, pat) or name == pat or name.startswith(pat.rstrip("/") + "/")
         for pat in excludes
     )
     return selected and not rejected
@@ -110,9 +108,9 @@ def inspect(config: dict) -> tuple[list[Path], list[dict]]:
                     {
                         "file": name,
                         "issue": label,
-                        "lines": sorted(
-                            {content.count("\n", 0, m.start()) + 1 for m in matches}
-                        )[:12],
+                        "lines": sorted({content.count("\n", 0, m.start()) + 1 for m in matches})[
+                            :12
+                        ],
                     }
                 )
 
