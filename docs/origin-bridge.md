@@ -30,7 +30,7 @@ Replace `C:\path\to\origin-mcp` with the local checkout path.
 ### Windows path and LabTalk launch pitfalls
 
 Prefer the Python Console snippet above for manual startup. It runs in pure
-Python mode and uses a raw string for the Windows path, so `C:\Users\...` is
+Python mode and uses a raw string for the Windows path, so `C:\UnicodeExample\...` is
 not parsed as a Python `\UXXXXXXXX` Unicode escape.
 
 If you launch from Origin's LabTalk Command Window instead, keep the command
