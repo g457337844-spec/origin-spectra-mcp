@@ -1,0 +1,40 @@
+{
+  "project": "Origin Spectra MCP",
+  "include": [
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE",
+    "pyproject.toml",
+    "uv.lock",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    "AGENTS.md",
+    "addon.py",
+    "glama.json",
+    "src",
+    "tests",
+    "examples",
+    "scripts",
+    "docs/mcp-config.md",
+    "docs/origin-bridge.md",
+    "docs/origin-ui-buttons.md",
+    "docs/spectra.md",
+    "docs/tools.md",
+    "docs/assets",
+    "docs/agentic",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "docs/ECOSYSTEM.md",
+    "oss-release.json"
+  ],
+  "exclude": [
+    "src/origin_mcp/official_docs.generated.json",
+    "src/origin_mcp/official_docs.version_diffs.json",
+    "scripts/oss_release_audit.py",
+    "scripts/oss-release-*",
+    "docs/local-review-2026-10-05.txt",
+    "**/__pycache__/**"
+  ],
+  "manual_review": []
+}
