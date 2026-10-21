@@ -124,7 +124,7 @@ def test_build_origin_app_sources() -> None:
 
 def test_origin_apps_dir_resolution(monkeypatch) -> None:
     builder = load_builder_module()
-    monkeypatch.setenv("LOCALAPPDATA", r"C:\Users\tester\AppData\Local")
+    monkeypatch.setenv("LOCALAPPDATA", r"C:\TestProfile\tester\AppData\Local")
     dest = builder.origin_apps_dir()
     assert dest is not None
     assert dest.name == builder.START_APP_NAME
