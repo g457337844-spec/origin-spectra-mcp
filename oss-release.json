@@ -26,7 +26,8 @@
     "CONTRIBUTING.md",
     "SECURITY.md",
     "docs/ECOSYSTEM.md",
-    "oss-release.json"
+    "oss-release.json",
+    ".github/workflows/ci.yml"
   ],
   "exclude": [
     "src/origin_mcp/official_docs.generated.json",
